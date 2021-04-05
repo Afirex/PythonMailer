@@ -73,18 +73,18 @@ if __name__ == '__main__':
     else:
         print("Check Parameters")
     
-#mailer_util("bodyWork Done by AFtab","Trying attachments","smtp.gmail.com","afirexnum1@gmail.com",'@$Aftab123',
-#            ['insurgentforge@gmail.com','jahanara11971@gmail.com'],
-#            ['aftabmohammad75@gmail.com'],["C:/Users/DELL/OneDrive/Desktop/lemonsoda.txt","C:/Users/DELL/OneDrive/Desktop/AUTOSYS.png"])
+#mailer_util("bodyWork Done by AFtab","Trying attachments","smtp.gmail.com","axnu@gmail.com",'XXX123XXX',
+#            ['SEAA@gmail.com','SEFF@gmail.com'],
+#            ['SEDD@gmail.com'],["C:/Users/DELL/OneDrive/Desktop/lemonsoda.txt","C:/Users/DELL/OneDrive/Desktop/AUTOSYS.png"])
 #mailer_util(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],
-#                    sys.argv[6],["aftabmohammad75@gmail.com"],["C:/Users/DELL/OneDrive/Desktop/lemonsoda.txt","C:/Users/DELL/OneDrive/Desktop/AUTOSYS.png"])
+#                    sys.argv[6],["REDD@gmail.com"],["C:/Users/DELL/OneDrive/Desktop/lemonsoda.txt","C:/Users/DELL/OneDrive/Desktop/AUTOSYS.png"])
 
 
 
 #Params Accepted: (message body, Subject , smtpservice , from , password , to , cc , attach ,bcc )
 
-#ex: python mailing.py '<h1>LoChicken</h2>' 'MessageOPEN SUbject' 'smtp.gmail.com' 'afirexnum1@gmail.com' 'passwordLolminex221' 'insurgentforge@gmail.com'
-# 'cu.16bcs2691@gmail.com,aftabmohammad75@gmail.com' 'C:/Users/DELL/OneDrive/Desktop/AUTO.png,C:/Users/DELL/OneDrive/Desktop/lemonsoda.txt'
+#ex: python mailing.py '<h1>LoChicken</h2>' 'MessageOPEN SUbject' 'smtp.gmail.com' 'SSS@gmail.com' 'passwordLolminex221' 'SSS@gmail.com'
+# 'cucs@gmail.com,ammad@gmail.com' 'C:/Users/DELL/OneDrive/Desktop/AUTO.png,C:/Users/DELL/OneDrive/Desktop/lemonsoda.txt'
 
 #MULTIPLE TO,CC can be given as csv  eg: "lol@xxx.com,koi@xxx.com"
 
@@ -104,16 +104,16 @@ import smtplib
 
 message = MIMEMultipart('alternative')
 message['Subject'] = 'Important'
-message['From'] = 'afirexnum1@gmail.com'
-message['To'] = 'insurgentforge@gmail.com'
-cc='aftabmohammad75@gmail.com'
+message['From'] = 'QWE@gmail.com'
+message['To'] = 'QWE@gmail.com'
+cc='QWE@gmail.com'
 message['Cc']=cc
 message.attach(MIMEText('# A Heading\nSomething else in the body', 'plain'))
 message.attach(MIMEText('<h1 style="color: RED">A Heading</h1><h2>lol</h2><p>Something else in the body</p>', 'html'))
 
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
-server.login(message['From'], '@$Aftab123')
+server.login(message['From'], 'SSSSSPASSW')
 server.sendmail(message['From'], [message['To'],cc], message.as_string())
 server.quit()
 
