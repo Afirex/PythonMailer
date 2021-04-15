@@ -2,7 +2,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email import encoders
 from email.mime.base import MIMEBase
-import smtplib
+import smtplib, ssl
 import sys
 
 
@@ -18,14 +18,9 @@ def mailer_util(body,sub,smtp_server,frm,passwd,to,cc='',attch='',bcc=''):
     message['Cc']=cc
 
 
-    wrapper = """<html>
-    <head>
-    <title></title>
-    </head>
-    <body><h1>%s <p>MeowInWraaper</p><p></h1>URL: %s </p><h2>%s</h2></body>
-    </html>"""
+    wrapper = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office"><head> <meta charset="UTF-8"> <meta content="width=device-width, initial-scale=1" name="viewport"> <meta name="x-apple-disable-message-reformatting"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta content="telephone=no" name="format-detection"> <title></title> <!--[if (mso 16)]> <style type="text/css"> a {text-decoration: none;} </style> <![endif]--> <!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]--> <!--[if gte mso 9]><xml> <o:OfficeDocumentSettings> <o:AllowPNG></o:AllowPNG> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings></xml><![endif]--></head><body> <div class="es-wrapper-color"> <!--[if gte mso 9]><v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t"><v:fill type="tile" color="#f6f6f6"></v:fill></v:background><![endif]--> <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="background-position: center top;"> <tbody> <tr> <td class="esd-email-paddings" valign="top"> <table cellpadding="0" cellspacing="0" class="es-content esd-header-popover" align="center"> <tbody> <tr> <td class="esd-stripe" align="center"> <table bgcolor="transparent" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="600" style="background-color: transparent;"> <tbody> <tr> <td class="esd-structure es-p10t es-p10b es-p20r es-p20l" align="left"> <table cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td width="560" class="esd-container-frame" align="center" valign="top"> <table cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td class="esd-block-text es-infoblock" align="left"> <p>Put your preheader text here</p> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <table cellpadding="0" cellspacing="0" class="es-header" align="center"> <tbody> <tr> <td class="esd-stripe" align="center" esd-custom-block-id="50055"> <table bgcolor="#ffffff" class="es-header-body" align="center" cellpadding="0" cellspacing="0" width="600"> <tbody> <tr> <td class="esd-structure" align="left" esd-custom-block-id="14025" style="background-position: center top;"> <!--[if mso]><table width="600" cellpadding="0" cellspacing="0"><tr><td width="302" valign="top"><![endif]--> <table class="es-left" cellspacing="0" cellpadding="0" align="left"> <tbody> <tr> <td class="esd-container-frame" width="302" align="left"> <table width="100%" cellspacing="0" cellpadding="0"> <tbody> <tr> <td class="esd-block-image es-m-p0l es-m-txt-c es-p20t es-p15b es-p20r es-p20l" align="left" style="font-size:0"><a href target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_09023af45624943febfa123c229a060b/images/52771560954249862.png" alt width="103" style="display: block;"></a></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td><td width="0"></td><td width="298" valign="top"><![endif]--> <table class="es-right" cellspacing="0" cellpadding="0" align="right"> <tbody> <tr> <td class="esd-container-frame" width="298" align="left"> <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#0000ff" style="background-color: #0000ff; background-position: center top;"> <tbody> <tr class="es-mobile-hidden"> <td align="center" class="esd-block-spacer" height="66"></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td></tr></table><![endif]--> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <table cellpadding="0" cellspacing="0" class="es-content" align="center"> <tbody> <tr> <td class="esd-stripe" align="center" esd-custom-block-id="50058"> <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="600"> <tbody> <tr> <td class="esd-structure" align="left" style="background-position: center top;"> <!--[if mso]><table dir="rtl" width="600" cellpadding="0" cellspacing="0"><tr><td dir="ltr" width="300" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-right" align="right"> <tbody> <tr> <td width="300" align="left" class="esd-container-frame es-m-p20b"> <table cellpadding="0" cellspacing="0" width="100%" style="background-position: center top; background-color: #0000fe;" bgcolor="#0000fe"> <tbody> <tr> <td align="center" class="esd-block-spacer" height="45"></td> </tr> <tr> <td align="center" class="esd-block-text"> <h2 style="color: #ffffff;">DEAR FRIEND!</h2> </td> </tr> <tr> <td align="center" class="esd-block-text es-p15t es-p10r es-p10l"> <p style="color: #ffffff;">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p> </td> </tr> <tr> <td align="center" class="esd-block-button es-p25t es-p20b es-p10r es-p10l"><span class="es-button-border"><a href="https://viewstripo.email/" class="es-button" target="_blank">Update now ➟</a></span></td> </tr> <tr class="es-mobile-hidden"> <td align="center" class="esd-block-spacer" height="97"></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td><td dir="ltr" width="0"></td><td dir="ltr" width="300" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-left" align="left"> <tbody> <tr> <td width="300" class="esd-container-frame" align="left"> <table cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr class="es-mobile-hidden"> <td align="center" class="esd-block-spacer" height="41"></td> </tr> <tr> <td align="center" class="esd-block-image" style="font-size:0"><a target="_blank"><img class="adapt-img" src="https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/45821562769287145.gif" alt style="display: block;" width="257"></a></td> </tr> <tr> <td align="center" class="esd-block-text es-p5t es-p10b"> <h2>YOUR CARD EXPIRES!</h2> </td> </tr> <tr> <td align="center" class="esd-block-timer es-p10t es-p10b es-p10r es-p10l" esdev-config="h1"><a target="_blank" href="https://viewstripo.email/"><img class="adapt-img" alt src="https://cdt-timer.stripocdn.email/api/v1/images/NBMf7JQsUSljlVMVK3LGg4MGn00T9OX67FXuBX6GWjE?time=1562673102755" width="251"></a></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td></tr></table><![endif]--> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <table cellpadding="0" cellspacing="0" class="es-content" align="center"> <tbody> <tr> <td class="esd-stripe" align="center" esd-custom-block-id="50056"> <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="600"> <tbody> <tr> <td class="esd-structure es-p20t es-p20r es-p20l" align="left"> <table cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td width="560" class="esd-container-frame" align="center" valign="top"> <table cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td align="center" class="esd-block-text es-p5t es-p10b"> <h2>ABOUT CARD</h2> </td> </tr> <tr> <td align="center" class="esd-block-text es-p10r es-p10l"> <p style="color: #333333;">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly </p> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> <tr> <td class="esd-structure es-p20t es-p20r es-p20l" align="left"> <!--[if mso]><table width="560" cellpadding="0" cellspacing="0"><tr><td width="188" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-left" align="left"> <tbody> <tr> <td width="183" class="es-m-p0r es-m-p20b esd-container-frame" align="center"> <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#efefef" style="background-color: #efefef;"> <tbody> <tr> <td align="center" class="esd-block-spacer" height="27"></td> </tr> <tr> <td align="center" class="esd-block-image es-p10b" style="font-size:0"><a target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/47811561967100512.png" alt style="display: block;" width="50"></a></td> </tr> <tr> <td align="center" class="esd-block-text"> <h3 style="color: #0000ff;">SALE</h3> </td> </tr> <tr> <td align="center" class="esd-block-spacer" height="19"></td> </tr> </tbody> </table> </td> <td class="es-hidden" width="5"></td> </tr> </tbody> </table> <!--[if mso]></td><td width="182" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-left" align="left"> <tbody> <tr> <td width="182" class="es-m-p0r es-m-p20b esd-container-frame" align="center"> <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#efefef" style="background-color: #efefef;"> <tbody> <tr> <td align="center" class="esd-block-spacer" height="17"></td> </tr> <tr> <td align="center" class="esd-block-image es-p10b" style="font-size:0"><a target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/85071561967408629.png" alt style="display: block;" width="45"></a></td> </tr> <tr> <td align="center" class="esd-block-text"> <h3 style="color: #0000ff;">NO TIME LIMIT</h3> </td> </tr> <tr> <td align="center" class="esd-block-spacer" height="19"></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td><td width="5"></td><td width="185" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-right" align="right"> <tbody> <tr> <td width="185" class="es-m-p0r es-m-p20b esd-container-frame" align="center"> <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#efefef" style="background-color: #efefef;"> <tbody> <tr> <td align="center" class="esd-block-spacer" height="19"></td> </tr> <tr> <td align="center" class="esd-block-image es-p10b" style="font-size:0"><a target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/7991561969675294.png" alt style="display: block;" width="40"></a></td> </tr> <tr> <td align="center" class="esd-block-text"> <h3 style="color: #0000ff;">PERSONAL COACH</h3> </td> </tr> <tr> <td align="center" class="esd-block-spacer" height="19"></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td></tr></table><![endif]--> </td> </tr> <tr> <td class="esd-structure es-p5t es-p10b es-p20r es-p20l" align="left" style="background-position: left top;"> <!--[if mso]><table width="560" cellpadding="0" cellspacing="0"><tr><td width="188" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-left" align="left"> <tbody> <tr> <td width="183" class="es-m-p0r es-m-p20b esd-container-frame" align="center"> <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#efefef" style="background-color: #efefef;"> <tbody> <tr> <td align="center" class="esd-block-spacer" height="20"></td> </tr> <tr> <td align="center" class="esd-block-image es-p10b" style="font-size:0"><a target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/64481561969863964.png" alt style="display: block;" width="50"></a></td> </tr> <tr> <td align="center" class="esd-block-text"> <h3 style="color: #0000ff;">SPA</h3> </td> </tr> <tr> <td align="center" class="esd-block-spacer" height="19"></td> </tr> </tbody> </table> </td> <td class="es-hidden" width="5"></td> </tr> </tbody> </table> <!--[if mso]></td><td width="182" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-left" align="left"> <tbody> <tr> <td width="182" class="es-m-p0r es-m-p20b esd-container-frame" align="center"> <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#efefef" style="background-color: #efefef;"> <tbody> <tr> <td align="center" class="esd-block-spacer" height="13"></td> </tr> <tr> <td align="center" class="esd-block-image es-p10b" style="font-size:0"><a target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/71651561970319293.png" alt style="display: block;" width="40"></a></td> </tr> <tr> <td align="center" class="esd-block-text"> <h3 style="color: #0000ff;">SOLARIUM</h3> </td> </tr> <tr> <td align="center" class="esd-block-spacer" height="19"></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td><td width="5"></td><td width="185" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-right" align="right"> <tbody> <tr> <td width="185" class="es-m-p0r es-m-p20b esd-container-frame" align="center"> <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#efefef" style="background-color: #efefef;"> <tbody> <tr> <td align="center" class="esd-block-spacer" height="20"></td> </tr> <tr> <td align="center" class="esd-block-image es-p10b" style="font-size:0"><a target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/34571561968107835.png" alt style="display: block;" width="40"></a></td> </tr> <tr> <td align="center" class="esd-block-text"> <h3 style="color: #0000ff;">365 DAYS</h3> </td> </tr> <tr> <td align="center" class="esd-block-spacer" height="19"></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td></tr></table><![endif]--> </td> </tr> <tr> <td class="esd-structure es-p10t es-p20b es-p20r es-p20l" align="left" style="background-position: left top;"> <table cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td width="560" class="esd-container-frame" align="center" valign="top"> <table cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td align="center" class="esd-block-button es-p10r es-p10l"><span class="es-button-border es-button-border-1561968340623" style="background: #0000ff;"><a href="https://viewstripo.email/" class="es-button es-button-1561968337795" target="_blank" style="color: #ffffff; background: #0000ff; border-color: #0000ff;">Update now ➟</a></span></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <table cellpadding="0" cellspacing="0" class="es-content" align="center"> <tbody> <tr> <td class="esd-stripe" align="center"> <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="600"> <tbody> <tr> <td class="esd-structure es-p20t es-p20r es-p20l esd-checked" align="left" bgcolor="#ffffff" style="background-image:url(https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/70581561990487470.jpg);background-color: #ffffff; background-position: left top; background-repeat: no-repeat;" esd-custom-block-id="50057"> <!--[if mso]><table width="560" cellpadding="0" cellspacing="0"><tr><td width="195" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-left" align="left"> <tbody> <tr> <td width="195" class="esd-container-frame es-m-p20b" align="left"> <table cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td align="center" class="esd-block-image" style="font-size:0"><a target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/57751561978626501.png" alt style="display: block;" width="195"></a></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td><td width="10"></td><td width="355" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-right" align="right"> <tbody> <tr> <td class="esd-container-frame" esd-custom-block-id="11014" width="355" align="left"> <table width="100%" cellspacing="0" cellpadding="0"> <tbody> <tr> <td class="esd-block-text es-p20t es-m-txt-l" align="left"> <h2>MOBILE APP</h2> </td> </tr> <tr> <td class="esd-block-text es-p10t es-p15b" align="left"> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae interdum ligula. Pellentesque feugiat ligula ligula, in interdum dolor aliquet et.</p> </td> </tr> <tr> <td> <table width="100%" cellspacing="0" cellpadding="0"> <tbody> <tr> <td class="esd-block-image es-m-txt-c es-p15b" align="left" style="font-size:0"><a target="_blank" href="https://viewstripo.email/"><img src="https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/20391561980152288.png" alt style="display: block;" width="130"></a></td> <td class="esd-block-image es-m-txt-c es-p15b" align="left" style="font-size:0"><a target="_blank" href="https://viewstripo.email/"><img src="https://tlr.stripocdn.email/content/guids/CABINET_a280ae134bbd86a02ef90564104c5c5a/images/53291561980170793.png" alt style="display: block;" width="130"></a></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td></tr></table><![endif]--> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <table cellpadding="0" cellspacing="0" class="es-footer" align="center"> <tbody> <tr> <td class="esd-stripe" align="center" esd-custom-block-id="47889"> <table bgcolor="#ffffff" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;"> <tbody> <tr> <td class="esd-structure es-p20t es-p20r es-p20l" align="left" style="background-position: center center;"> <!--[if mso]><table width="560" cellpadding="0" cellspacing="0"><tr><td width="270" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-left" align="left"> <tbody> <tr> <td width="270" class="esd-container-frame es-m-p20b" align="center" valign="top"> <table cellpadding="0" cellspacing="0" width="100%" style="background-position: center top;"> <tbody> <tr> <td align="left" class="esd-block-text"> <h4 style="color: #0000ff; font-size: 21px;">Follow Us.</h4> </td> </tr> <tr> <td align="left" class="esd-block-text es-p5t"> <p style="color: #090101;">It is a long established fact that a reader will be distracted by the readable&nbsp;</p> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td><td width="20"></td><td width="270" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-right" align="right"> <tbody> <tr> <td width="270" align="left" class="esd-container-frame"> <table cellpadding="0" cellspacing="0" width="100%" style="background-position: center top;"> <tbody> <tr> <td align="left" class="esd-block-text"> <h4 style="color: #0000ff; font-size: 21px;">Contact Us.</h4> </td> </tr> <tr> <td align="left" class="esd-block-text es-p5t es-p5b"> <p style="color: #090101;">It is a long established fact that a reader will be distracted by the readable&nbsp;</p> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td></tr></table><![endif]--> </td> </tr> <tr> <td class="esd-structure es-p10b es-p20r es-p20l" align="left" style="background-position: center top;"> <!--[if mso]><table width="560" cellpadding="0" cellspacing="0"><tr><td width="270" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-left" align="left"> <tbody> <tr> <td width="270" class="esd-container-frame es-m-p20b" align="left"> <table cellpadding="0" cellspacing="0" width="100%" style="background-position: center center;"> <tbody> <tr> <td align="left" class="esd-block-social es-p10t" bgcolor="transparent" style="font-size:0;background-color: transparent;"> <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social"> <tbody> <tr> <td align="center" valign="top" class="es-p10r"><a target="_blank" href><img title="Facebook" src="https://tlr.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" width="32"></a></td> <td align="center" valign="top" class="es-p10r"><a target="_blank" href><img title="Twitter" src="https://tlr.stripocdn.email/content/assets/img/social-icons/logo-black/twitter-logo-black.png" alt="Tw" width="32"></a></td> <td align="center" valign="top" class="es-p10r"><a target="_blank" href><img title="Instagram" src="https://tlr.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Inst" width="32"></a></td> <td align="center" valign="top"><a target="_blank" href><img title="Youtube" src="https://tlr.stripocdn.email/content/assets/img/social-icons/logo-black/youtube-logo-black.png" alt="Yt" width="32"></a></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td><td width="20"></td><td width="270" valign="top"><![endif]--> <table cellpadding="0" cellspacing="0" class="es-right" align="right"> <tbody> <tr> <td class="esd-container-frame es-m-p20b" width="270" align="left"> <table width="100%" cellspacing="0" cellpadding="0" style="background-position: center top;"> <tbody> <tr> <td> <table class="es-table-not-adapt" cellspacing="0" cellpadding="0"> <tbody> <tr> <td class="esd-block-image es-p5t es-p5b es-p5r" valign="top" align="center" style="font-size:0"><a href target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_d6b02eef486e424923e42d33952bbae0/images/48411561457221481.png" alt width="21" style="display: block;"></a></td> <td align="left"> <table width="100%" cellspacing="0" cellpadding="0"> <tbody> <tr> <td align="left" esd-links-underline="none" class="esd-block-text"> <p><b><a target="_blank" style="text-decoration: none;" href="tel:123456789">123456789</a></b></p> </td> </tr> </tbody> </table> </td> </tr> <tr> <td class="esd-block-image es-p5t es-p5b es-p5r" valign="top" align="center" style="font-size:0"><a href target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_d6b02eef486e424923e42d33952bbae0/images/34561561457385078.png" alt width="21" style="display: block;"></a></td> <td align="left"> <table width="100%" cellspacing="0" cellpadding="0"> <tbody> <tr> <td align="left" esd-links-underline="none" class="esd-block-text"> <p><strong><a target="_blank" href="mailto:your@mail.com" style="text-decoration: none;">your@mail.com</a></strong></p> </td> </tr> </tbody> </table> </td> </tr> <tr> <td class="esd-block-image es-p5t es-p5b es-p5r" valign="top" align="left" style="font-size:0"><a href target="_blank"><img src="https://tlr.stripocdn.email/content/guids/CABINET_d6b02eef486e424923e42d33952bbae0/images/9911561457458673.png" alt width="21" style="display: block;"></a></td> <td align="left"> <table width="100%" cellspacing="0" cellpadding="0"> <tbody> <tr> <td align="left" esd-links-underline="none" class="esd-block-text"> <p style="color: #0000ff;"><strong>San Francisco</strong></p> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <!--[if mso]></td></tr></table><![endif]--> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <table cellpadding="0" cellspacing="0" class="es-footer" align="center"> <tbody> <tr> <td class="esd-stripe" align="center"> <table bgcolor="rgba(0, 0, 0, 0)" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" width="600" style="background-color: transparent;"> <tbody> <tr> <td class="esd-structure es-p10t es-p10b es-p20r es-p20l" align="left" style="background-position: center top;"> <table cellpadding="0" cellspacing="0" width="100%"> <tbody> <tr> <td width="560" class="esd-container-frame" align="center" valign="top"> <table cellpadding="0" cellspacing="0" width="100%" style="background-position: center top;"> <tbody> <tr> <td align="center" class="esd-block-text"> <p style="font-size: 12px; color: #999999;">Lorem ipgsum dolor sit amet, consectetur adipiscing <br></p> <p style="font-size: 12px; color: #999999;">elit. Pellentesque vitae interdum ligula.</p> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <table cellpadding="0" cellspacing="0" class="es-content esd-footer-popover" align="center"> <tbody> <tr> <td class="esd-stripe" align="center"> <table bgcolor="transparent" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="600" style="background-color: transparent;"> <tbody> <tr> <td class="esd-structure es-p30t es-p30b es-p20r es-p20l" align="left" style="background-position: left top;"> <table width="100%" cellspacing="0" cellpadding="0"> <tbody> <tr> <td class="esd-container-frame" width="560" valign="top" align="center"> <table width="100%" cellspacing="0" cellpadding="0"> <tbody> <tr> <td class="esd-block-image es-infoblock made_with" align="center" style="font-size:0"><a target="_blank" href="https://viewstripo.email/?utm_source=templates&utm_medium=email&utm_campaign=sport2&utm_content=notice_alerts_notifications"><img src="https://tlr.stripocdn.email/content/guids/CABINET_09023af45624943febfa123c229a060b/images/7911561025989373.png" alt width="125" style="display: block;"></a></td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </div> %s </body></html>"""
 
-    email_template = wrapper % (body, 'now', 'url')
+    email_template = wrapper % (body) #Put body param here as needed
 
                             
     message.attach(MIMEText(body, 'plain'))
@@ -33,7 +28,7 @@ def mailer_util(body,sub,smtp_server,frm,passwd,to,cc='',attch='',bcc=''):
    
     ''' Attaching multiple files '''
     
-    if attch!=['']:
+    if attch!='':
         attch=attch.split(",")
         for x in attch:
             filename = x
@@ -50,16 +45,19 @@ def mailer_util(body,sub,smtp_server,frm,passwd,to,cc='',attch='',bcc=''):
                 )
             message.attach(part)
 
+    ctx=ssl.create_default_context()
     
-    server = smtplib.SMTP(smtp_server, 587)
+    server = smtplib.SMTP(smtp_server,587) #smtplib.SMTP(smtp_server, 995) for IMAP ## FOLLOW  UP
+    server.ehlo()
     server.starttls()
+    server.ehlo
     server.login(message['From'], passwd)
     server.sendmail(message['From'],rcpt, message.as_string())
     server.quit()
 
 
 if __name__ == '__main__':
-    
+    print("\n\n",sys.argv,"\n\n")
     if len(sys.argv)<7:
         print("Params missing")
     elif len(sys.argv)==7:
@@ -72,178 +70,13 @@ if __name__ == '__main__':
                     sys.argv[6],sys.argv[7],sys.argv[8])
     else:
         print("Check Parameters")
-    
-#mailer_util("bodyWork Done by AFtab","Trying attachments","smtp.gmail.com","axnu@gmail.com",'XXX123XXX',
-#            ['SEAA@gmail.com','SEFF@gmail.com'],
-#            ['SEDD@gmail.com'],["C:/Users/DELL/OneDrive/Desktop/lemonsoda.txt","C:/Users/DELL/OneDrive/Desktop/AUTOSYS.png"])
-#mailer_util(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],
-#                    sys.argv[6],["REDD@gmail.com"],["C:/Users/DELL/OneDrive/Desktop/lemonsoda.txt","C:/Users/DELL/OneDrive/Desktop/AUTOSYS.png"])
 
-
-
-#Params Accepted: (message body, Subject , smtpservice , from , password , to , cc , attach ,bcc )
-
-#ex: python mailing.py '<h1>LoChicken</h2>' 'MessageOPEN SUbject' 'smtp.gmail.com' 'SSS@gmail.com' 'passwordLolminex221' 'SSS@gmail.com'
-# 'cucs@gmail.com,ammad@gmail.com' 'C:/Users/DELL/OneDrive/Desktop/AUTO.png,C:/Users/DELL/OneDrive/Desktop/lemonsoda.txt'
-
-#MULTIPLE TO,CC can be given as csv  eg: "lol@xxx.com,koi@xxx.com"
-
-
-
-
-
-
-
-
-
-
-'''
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import smtplib
-
-message = MIMEMultipart('alternative')
-message['Subject'] = 'Important'
-message['From'] = 'QWE@gmail.com'
-message['To'] = 'QWE@gmail.com'
-cc='QWE@gmail.com'
-message['Cc']=cc
-message.attach(MIMEText('# A Heading\nSomething else in the body', 'plain'))
-message.attach(MIMEText('<h1 style="color: RED">A Heading</h1><h2>lol</h2><p>Something else in the body</p>', 'html'))
-
-server = smtplib.SMTP('smtp.gmail.com', 587)
-server.starttls()
-server.login(message['From'], 'SSSSSPASSW')
-server.sendmail(message['From'], [message['To'],cc], message.as_string())
-server.quit()
-
-'''
-
-
-'''
-  message.attach(MIMEText("""<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office"><head>
-              <meta charset="utf-8">
-              <meta name="viewport" content="width=device-width,initial-scale=1">
-              <meta name="x-apple-disable-message-reformatting">
-              <title></title>
-                    <!--[if mso]>
-              <style>
-                table {border-collapse:collapse;border-spacing:0;border:none;margin:0;}
-                div, td {padding:0;}
-                div {margin:0 !important;}
-                    </style>
-              <noscript>
-                <xml>
-                  <o:OfficeDocumentSettings>
-                    <o:PixelsPerInch>96</o:PixelsPerInch>
-                  </o:OfficeDocumentSettings>
-                </xml>
-              </noscript>
-              <![endif]-->
-              <style>
-                table, td, div, h1, p {
-                  font-family: Arial, sans-serif;
-                }
-                @media screen and (max-width: 530px) {
-                  .unsub {
-                    display: block;
-                    padding: 8px;
-                    margin-top: 14px;
-                    border-radius: 6px;
-                    background-color: #555555;
-                    text-decoration: none !important;
-                    font-weight: bold;
-                  }
-                  .col-lge {
-                    max-width: 100% !important;
-                  }
-                }
-                @media screen and (min-width: 531px) {
-                  .col-sml {
-                    max-width: 27% !important;
-                  }
-                  .col-lge {
-                    max-width: 73% !important;
-                  }
-                }
-              </style>
-            </head>
-        <body style="margin:0;padding:0;word-spacing:normal;background-color:#939297;">
-    <div role="article" aria-roledescription="email" lang="en" style="text-size-adjust:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;background-color:#939297;">
-                <table role="presentation" style="width:100%;border:none;border-spacing:0;">
-                  <tr>
-                    <td align="center" style="padding:0;">
-                      <!--[if mso]>
-                      <table role="presentation" align="center" style="width:600px;">
-                      <tr>
-                      <td>
-                      <![endif]-->
-        <table role="presentation" style="width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
-                        <tr>
-                          <td style="padding:40px 30px 30px 30px;text-align:center;font-size:24px;font-weight:bold;">
-                            <a href="http://www.example.com/" style="text-decoration:none;"><img src="https://assets.codepen.io/210284/logo.png" width="165" alt="Logo" style="width:80%;max-width:165px;height:auto;border:none;text-decoration:none;color:#ffffff;"></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="padding:30px;background-color:#ffffff;">
-        <h1 style="margin-top:0;margin-bottom:16px;font-size:26px;line-height:32px;font-weight:bold;letter-spacing:-0.02em;">{{body}}</h1>
         
-                            <p style="margin:0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit amet blandit ipsum volutpat sed. Morbi porttitor, <a href="http://www.example.com/" style="color:#e50d70;text-decoration:underline;">eget accumsan dictum</a>, nisi libero ultricies ipsum, in posuere mauris neque at erat.</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="padding:0;font-size:24px;line-height:28px;font-weight:bold;">
-                            <a href="http://www.example.com/" style="text-decoration:none;"><img src="https://assets.codepen.io/210284/1200x800-2.png" width="600" alt="" style="width:100%;height:auto;display:block;border:none;text-decoration:none;color:#363636;"></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="padding:35px 30px 11px 30px;font-size:0;background-color:#ffffff;border-bottom:1px solid #f0f0f5;border-color:rgba(201,201,207,.35);">
-                            <!--[if mso]>
-                            <table role="presentation" width="100%">
-                            <tr>
-                            <td style="width:145px;" align="left" valign="top">
-                            <![endif]-->
-                            <div class="col-sml" style="display:inline-block;width:100%;max-width:145px;vertical-align:top;text-align:left;font-family:Arial,sans-serif;font-size:14px;color:#363636;">
-                              <img src="https://assets.codepen.io/210284/icon.png" width="115" alt="" style="width:80%;max-width:115px;margin-bottom:20px;">
-                            </div>
-                            <!--[if mso]>
-                            </td>
-                            <td style="width:395px;padding-bottom:20px;" valign="top">
-                            <![endif]-->
-                            <div class="col-lge" style="display:inline-block;width:100%;max-width:395px;vertical-align:top;padding-bottom:20px;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
-                              <p style="margin-top:0;margin-bottom:12px;">Nullam mollis sapien vel cursus fermentum. Integer porttitor augue id ligula facilisis pharetra. In eu ex et elit ultricies ornare nec ac ex. Mauris sapien massa, placerat non venenatis et, tincidunt eget leo.</p>
-                              <p style="margin-top:0;margin-bottom:18px;">Nam non ante risus. Vestibulum vitae eleifend nisl, quis vehicula justo. Integer viverra efficitur pharetra. Nullam eget erat nibh.</p>
-                              <p style="margin:0;"><a href="https://example.com/" style="background: #ff3884; text-decoration: none; padding: 10px 25px; color: #ffffff; border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#ff3884"><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:20pt">&nbsp;</i><![endif]--><span style="mso-text-raise:10pt;font-weight:bold;">Claim yours now</span><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;</i><![endif]--></a></p>
-                            </div>
-                            <!--[if mso]>
-                            </td>
-                            </tr>
-                            </table>
-                            <![endif]-->
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="padding:30px;font-size:24px;line-height:28px;font-weight:bold;background-color:#ffffff;border-bottom:1px solid #f0f0f5;border-color:rgba(201,201,207,.35);">
-                            <a href="http://www.example.com/" style="text-decoration:none;"><img src="https://assets.codepen.io/210284/1200x800-1.png" width="540" alt="" style="width:100%;height:auto;border:none;text-decoration:none;color:#363636;"></a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="padding:30px;background-color:#ffffff;">
-                            <p style="margin:0;">Duis sit amet accumsan nibh, varius tincidunt lectus. Quisque commodo, nulla ac feugiat cursus, arcu orci condimentum tellus, vel placerat libero sapien et libero. Suspendisse auctor vel orci nec finibus.</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="padding:30px;text-align:center;font-size:12px;background-color:#404040;color:#cccccc;">
-                            <p style="margin:0 0 8px 0;"><a href="http://www.facebook.com/" style="text-decoration:none;"><img src="https://assets.codepen.io/210284/facebook_1.png" width="40" height="40" alt="f" style="display:inline-block;color:#cccccc;"></a> <a href="http://www.twitter.com/" style="text-decoration:none;"><img src="https://assets.codepen.io/210284/twitter_1.png" width="40" height="40" alt="t" style="display:inline-block;color:#cccccc;"></a></p>
-                            <p style="margin:0;font-size:14px;line-height:20px;">&reg; Someone, Somewhere 2021<br><a class="unsub" href="http://www.example.com/" style="color:#cccccc;text-decoration:underline;">Unsubscribe instantly</a></p>
-                          </td>
-                        </tr>
-                      </table>
-                      <!--[if mso]>
-                      </td>
-                      </tr>
-                      </table>
-                      <![endif]-->
-                    </td></tr></table></div></body></html>""",
-                            'html'))
-'''
+        
+# ---------------------------------------------------------------
+# Trail command :
+#
+# python mailing.py "bodyWork Done by AFtab" "Trying attachments" "smtp.office365.com" "FROM@ccd.cin" "PassWordy" "TO@ccd.com" "CC1@gmail.com,CC2@gmail.com" "C:/Users/ELL/OneDrive/Desktop/lemonsoda.txt,C:/Users/ELL/OneDrive/Desktop/AUTOSYS.png"
+#
+# ===========================================================================
+        
