@@ -84,5 +84,5 @@ if __name__ == '__main__':
 #
 #   python mailing.py "Error XXX, Alert LEVEL,Description here" "Subject Here" "smtp server here" "From@mail.com" "PasswordHere" "to@gmail.com" "ccc@gmail.com,cc@mail.com" "attachment path 1, attachment path 2"
 #
-#
+#   if no attachment or CC contacts // it can be skipped from command 
 # ---------------------------------------------------------------
